@@ -8,9 +8,11 @@ public class MossGiant : Enemy
     private Vector3 _currentTarget;
     [SerializeField]
     private Animator _anim;
+    private SpriteRenderer _spriteRenderer;
     public void Start()
     {
         _anim = GetComponentInChildren<Animator>();
+        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         Attack();
     }
     public override void Attack()
@@ -28,6 +30,14 @@ public class MossGiant : Enemy
     }
     public void Movement()
     {
+        if (_currentTarget == pointA.position)
+        {
+            _spriteRenderer.flipX = true;
+        }
+        else
+        {
+            _spriteRenderer.flipX = false;
+        }
         if (transform.position == pointA.position)
         {
             _anim.SetTrigger("Idle");
@@ -39,6 +49,7 @@ public class MossGiant : Enemy
             _anim.SetTrigger("Idle");
             _currentTarget = pointA.position;
         }
+       
         transform.position = Vector3.MoveTowards(transform.position, _currentTarget, speed * Time.deltaTime);
     }
 }
