@@ -10,6 +10,8 @@ public abstract class Enemy : MonoBehaviour
     protected int gems;
     [SerializeField]
     protected float speed;
+    [SerializeField]
+    protected Transform pointA,pointB;
 
     public virtual void Attack()
     {
