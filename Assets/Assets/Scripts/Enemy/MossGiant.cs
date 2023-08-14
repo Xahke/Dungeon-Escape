@@ -6,8 +6,11 @@ using UnityEngine;
 public class MossGiant : Enemy
 {
     private Vector3 _currentTarget;
+    [SerializeField]
+    private Animator _anim;
     public void Start()
     {
+        _anim = GetComponentInChildren<Animator>();
         Attack();
     }
     public override void Attack()
@@ -17,6 +20,10 @@ public class MossGiant : Enemy
 
     public override void Update()
     {
+        if (_anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        {
+            return;
+        }
         Movement();
     }
     public void Movement()
