@@ -30,11 +30,13 @@ public class MossGiant : Enemy
     {
         if (transform.position == pointA.position)
         {
+            _anim.SetTrigger("Idle");
             _currentTarget = pointB.position;
 
         }
         else if (transform.position == pointB.position)
         {
+            _anim.SetTrigger("Idle");
             _currentTarget = pointA.position;
         }
         transform.position = Vector3.MoveTowards(transform.position, _currentTarget, speed * Time.deltaTime);
