@@ -12,10 +12,52 @@ public abstract class Enemy : MonoBehaviour
     protected float speed;
     [SerializeField]
     protected Transform pointA,pointB;
+    protected Vector3 currentTarget;
+    protected Animator anim;
+    protected SpriteRenderer spriteRenderer;
 
-    public virtual void Attack()
+    public virtual void Init()
     {
-        Debug.Log(gameObject.name);
+        anim = GetComponentInChildren<Animator>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
-    public abstract void Update();
+    public virtual void Start()
+    {
+        Init(); 
+    }
+    public virtual void Update()
+    {
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        {
+            return;
+        }
+        Movement();
+    }
+
+    public virtual void Movement()
+    {
+        if (currentTarget == pointA.position)
+        {
+            spriteRenderer.flipX = true;
+        }
+        else
+        {
+            spriteRenderer.flipX = false;
+        }
+        if (transform.position == pointA.position)
+        {
+            anim.SetTrigger("Idle");
+            currentTarget = pointB.position;
+
+        }
+        else if (transform.position == pointB.position)
+        {
+            anim.SetTrigger("Idle");
+            currentTarget = pointA.position;
+        }
+
+        transform.position = Vector3.MoveTowards(transform.position, currentTarget, speed * Time.deltaTime);
+    }
+
+ 
 }

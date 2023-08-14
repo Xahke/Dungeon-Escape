@@ -1,15 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Spider : Enemy
 {
-    public override void Attack()
+    public override void Init()
     {
-        Debug.Log("Spider Attack");
-    }
-    public override void Update()
-    {
-        Debug.Log("Spider Updating");
+        base.Init();
     }
 }
