@@ -23,7 +23,8 @@ public class Spider : Enemy,IDamageable
         health--;
         if (health<1)
         {
-            Destroy(gameObject);
+            isDead = true;
+            anim.SetTrigger("Death");
         }
     }
     public override void Movement()

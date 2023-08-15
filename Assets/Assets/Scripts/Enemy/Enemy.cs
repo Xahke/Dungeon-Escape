@@ -17,6 +17,7 @@ public abstract class Enemy : MonoBehaviour
     protected SpriteRenderer spriteRenderer;
     protected bool isHit;
     protected GameObject Player;
+    protected bool isDead = false;
 
     public virtual void Init()
     {
@@ -34,6 +35,7 @@ public abstract class Enemy : MonoBehaviour
         {
             return;
         }
+        if (isDead==false)
         Movement();
 
     }

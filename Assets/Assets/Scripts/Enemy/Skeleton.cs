@@ -28,7 +28,8 @@ public class Skeleton : Enemy,IDamageable
 
         if (health<=0)
         {
-            Destroy(gameObject);
+            isDead = true;
+            anim.SetTrigger("Death");
         }
     }
     IEnumerator HitCooldown()
