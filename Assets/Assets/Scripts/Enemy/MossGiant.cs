@@ -25,6 +25,10 @@ public class MossGiant : Enemy,IDamageable
             anim.SetBool("InCombat", true);
             StartCoroutine(HitCooldown());
         }
+        if (health<1)
+        {
+           Destroy(gameObject);
+        }
         
 
     }
