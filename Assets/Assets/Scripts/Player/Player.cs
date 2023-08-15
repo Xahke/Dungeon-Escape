@@ -5,8 +5,10 @@ using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour,IDamageable
 {
+    public int Health { get; set; }
+    public bool CanAttack { get; set; }
     Rigidbody2D rigidBody2D;
     [SerializeField]
     private float speed = 2.5f;
@@ -96,5 +98,10 @@ public class Player : MonoBehaviour
         jumpCooldown = true;
         yield return new WaitForSeconds(0.1f);
         jumpCooldown = false;
+    }
+
+    public void Damage()
+    {
+        Debug.Log("Damage()"+" "+transform.name);
     }
 }

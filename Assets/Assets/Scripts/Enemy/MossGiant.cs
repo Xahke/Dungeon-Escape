@@ -11,9 +11,26 @@ public class MossGiant : Enemy,IDamageable
     public override void Init()
     {
         base.Init();
+        Health = health;
+        CanAttack = true;
     }
     public void Damage()
     {
-    }
+        if (CanAttack)
+        {
+            health--;
+            isHit = true;
+            anim.SetTrigger("Hit");
+            CanAttack=false;
+            anim.SetBool("InCombat", true);
+            StartCoroutine(HitCooldown());
+        }
+        
 
+    }
+    IEnumerator HitCooldown()
+    {
+        yield return new WaitForSeconds(0.5f);
+        CanAttack = true;
+    }
 }
