@@ -17,16 +17,21 @@ public class UIManager : MonoBehaviour
             return _instance;
         }
     }
+    public Text gemCountTextForShop;
     public Text gemCountText;
     public Image SelectionImg;
     public void OpenShop(int gemCount)
     {
-        gemCountText.text = " "+gemCount+"G";
+        gemCountTextForShop.text = " "+gemCount+"G";
     }
     
     public void SelectedShopItem(float y)
     {
         SelectionImg.rectTransform.anchoredPosition = new Vector2(76.4f, y);
+    }
+    public void WriteGemCount(int gemCount)
+    {
+        gemCountText.text = gemCount.ToString();
     }
     private void Awake()
     {

@@ -109,5 +109,6 @@ public class Player : MonoBehaviour,IDamageable
     public void AddGem()
     {
         gems++;
+        UIManager.Instance.WriteGemCount(gems);
     }
 }
