@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour,IDamageable
@@ -15,18 +16,21 @@ public class Player : MonoBehaviour,IDamageable
     Rigidbody2D rigidBody2D;
     [SerializeField]
     private float speed = 2.5f;
-    public float jumpForce=5f;
+    public float jumpForce=7f;
     private bool jumpCooldown;
     private bool _isGrounded = false;
     private PlayerAnimation _animScript;
     private SpriteRenderer _spriteRenderer;
     private SpriteRenderer _spriteRendererSwordArc;
+    [SerializeField]
+    private PlayerInput _playerInput;
     void Start()
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
         _animScript = GetComponent<PlayerAnimation>();
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         _spriteRendererSwordArc = transform.GetChild(1).GetComponent<SpriteRenderer>();
+        _playerInput = GetComponent<PlayerInput>();
         Health = 4;
     }
 
@@ -39,24 +43,25 @@ public class Player : MonoBehaviour,IDamageable
    
     void Attack()
     {
-        if (Input.GetMouseButtonDown(0)&& CheckTouchGround() == true)
+        if (_playerInput.actions["Attack"].triggered && CheckTouchGround() == true)
         {
             _animScript.Attack();
         }
     }
     void Movement()
     {
-        float move = Input.GetAxisRaw("Horizontal");
+        Vector2 input = _playerInput.actions["Move"].ReadValue<Vector2>();
+        Vector3 move = new Vector3(input.x, 0,0);
         _isGrounded = CheckTouchGround();
-        _animScript.GetMoveDirection(move);
-        Flip(move);
+        _animScript.GetMoveDirection(input.x);
+        Flip(input.x);
 
-        rigidBody2D.velocity = new Vector2(move*speed, rigidBody2D.velocity.y);
+        rigidBody2D.velocity = new Vector2(input.x*speed, rigidBody2D.velocity.y);
 
-        if (Input.GetKeyDown(KeyCode.Space) && CheckTouchGround() == true)
+        if (_playerInput.actions["Jump"].triggered  && CheckTouchGround() == true)
         {
             _animScript.Jump(true);
-            rigidBody2D.velocity = new Vector2(rigidBody2D.position.x, jumpForce);
+            rigidBody2D.velocity = new Vector2(0, jumpForce);
             StartCoroutine(JumpCooldown());
         }
     }
