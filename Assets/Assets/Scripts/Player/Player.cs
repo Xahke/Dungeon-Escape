@@ -10,7 +10,7 @@ public class Player : MonoBehaviour,IDamageable
     public int Health { get; set; }
     public bool CanAttack { get; set; }
     [SerializeField]
-    private int gems = 0;
+    public int gems = 0;
     Rigidbody2D rigidBody2D;
     [SerializeField]
     private float speed = 2.5f;
