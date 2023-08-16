@@ -33,6 +33,19 @@ public class UIManager : MonoBehaviour
     {
         gemCountText.text = gemCount.ToString();
     }
+    public Image[] healthImages;
+    public void UpdateLives(int currentLives)
+    {
+        switch (currentLives)
+        {
+            case 0: healthImages[3].gameObject.SetActive(false); break;
+            case 1: healthImages[2].gameObject.SetActive(false); break;
+            case 2: healthImages[1].gameObject.SetActive(false); break;
+            case 3: healthImages[0].gameObject.SetActive(false); break;
+            default:
+                break;
+        }
+    }
     private void Awake()
     {
         _instance = this;

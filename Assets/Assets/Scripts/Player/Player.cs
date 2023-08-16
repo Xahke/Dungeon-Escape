@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour,IDamageable
 {
@@ -26,6 +27,7 @@ public class Player : MonoBehaviour,IDamageable
         _animScript = GetComponent<PlayerAnimation>();
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         _spriteRendererSwordArc = transform.GetChild(1).GetComponent<SpriteRenderer>();
+        Health = 4;
     }
 
     // Update is called once per frame
@@ -104,7 +106,12 @@ public class Player : MonoBehaviour,IDamageable
 
     public void Damage()
     {
-        Debug.Log("Damage()"+" "+transform.name);
+        Health--;
+        UIManager.Instance.UpdateLives(Health);
+        if (Health<1)
+        {
+            _animScript.Death();
+        }
     }
     public void AddGem()
     {

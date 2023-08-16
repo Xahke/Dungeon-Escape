@@ -20,7 +20,6 @@ public class Acid : MonoBehaviour
     {
         if (collision.transform.tag == "Player")
         {
-            Debug.Log("Dokundu valla");
             player = collision.transform.GetComponent<Player>();
             if (player != null)
             {
