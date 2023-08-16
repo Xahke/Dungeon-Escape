@@ -6,6 +6,7 @@ public class Skeleton : Enemy,IDamageable
 {
     public int Health { get; set; }
     public bool CanAttack { get; set; }
+   
     public override void Init()
     {
         base.Init();
@@ -15,6 +16,8 @@ public class Skeleton : Enemy,IDamageable
 
     public void Damage()
     {
+        if(isDead==true)
+            return;
         if (CanAttack)
         {
             health--;
@@ -28,8 +31,8 @@ public class Skeleton : Enemy,IDamageable
 
         if (health<=0)
         {
-            isDead = true;
-            anim.SetTrigger("Death");
+           Death();
+            
         }
     }
     IEnumerator HitCooldown()

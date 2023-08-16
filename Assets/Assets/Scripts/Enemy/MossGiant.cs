@@ -16,6 +16,8 @@ public class MossGiant : Enemy,IDamageable
     }
     public void Damage()
     {
+        if (isDead == true)
+            return;
         if (CanAttack)
         {
             health--;
@@ -27,8 +29,7 @@ public class MossGiant : Enemy,IDamageable
         }
         if (health<1)
         {
-            isDead = true;
-            anim.SetTrigger("Death");
+            Death();
         }
         
 

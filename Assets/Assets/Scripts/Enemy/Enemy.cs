@@ -18,6 +18,8 @@ public abstract class Enemy : MonoBehaviour
     protected bool isHit;
     protected GameObject Player;
     protected bool isDead = false;
+    [SerializeField]
+    private GameObject DiamondPrefab;
 
     public virtual void Init()
     {
@@ -85,6 +87,16 @@ public abstract class Enemy : MonoBehaviour
         }
         
         
+    }
+    public void Death()
+    { 
+            isDead = true;
+            anim.SetTrigger("Death");   
+            for (int i = 0; i < gems; i++)
+            {
+                Instantiate(DiamondPrefab, transform.position, Quaternion.identity);
+            }
+       
     }
 
 }
