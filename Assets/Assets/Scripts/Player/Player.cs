@@ -106,6 +106,10 @@ public class Player : MonoBehaviour,IDamageable
 
     public void Damage()
     {
+        if (Health<1)
+        {
+            return;
+        }
         Health--;
         UIManager.Instance.UpdateLives(Health);
         if (Health<1)
