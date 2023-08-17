@@ -50,6 +50,7 @@ public class Shop : MonoBehaviour
                 UIManager.Instance.SelectedShopItem(-102f);
                 itemCost = 1000;
                 itemNo = 2;
+
                 break;
 
             default:
@@ -62,6 +63,7 @@ public class Shop : MonoBehaviour
     {
         if (player.gems>=itemCost)
         {
+            UIManager.Instance.WriteGemCount(player.gems);
             if (itemNo == 2)
             {
                 GameManager.Instance.HasKey = true;
